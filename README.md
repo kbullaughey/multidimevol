@@ -9,6 +9,17 @@ Bullaughey, K. (2012) Multidimensional adaptive evolution of a feed-forward netw
 
 The authorative copy of this source can be found at: https://github.com/kbullaughey/multidimevol
 
+Getting the code
+----------------
+
+The preferred way to download the source, data, and plots, is to clone the git repository like so:
+
+    git clone git://github.com/kbullaughey/multidimevol.git
+
+This will create a directory `multidimevol` containing everything. 
+
+**Please note that this repository is rather large (hundreds of MB), because it includes all the simulated data.** 
+
 Dependencies & Runtime Environment
 ----------------------------------
 
@@ -55,8 +66,34 @@ Running the analyses
 
 **Note:** Unfortunately, I did not always set a seed for the random number generators, and so the results in the paper are not exactly reproducable from the code contained in this repository. Nonetheless, I do not expect that any of the results are outliers, and so the running the analyses contained here should produce essentially the same results.
 
-Data behind the figures and tables
-----------------------------------
+All of the analyses scripts are contained in the directory `analyses`. It's easiest if these scripts are run from within this directory because they use a relative path to locate the `src` directory.
 
-**Table S1**
+In general, I pass a parameter `run` to each script. This can be any string that can appear in a file name, and I use it to version my analyses. Throughout the analyses, the run corresponding to the submitted version is labeled `2011_10_20`. All the data files and plots from this run are in the git repository.
 
+**Producing Figure 4 and Table S1**
+
+To make a new version of Figure 4 (with a new run name), there are two steps. The first performs the simulations:
+
+    R --vanilla --args --run=2012_06_20 < random_starts-run.r 
+
+And the second step, produces Figure 4 as well as the data for Table S1:
+
+    R --vanilla --args --run=2012_06_20 < random_starts-curves-grid.r
+
+**Producing Figure 5**
+
+To make Figure 5, run the following:
+
+    R --vanilla --args --run=2012_06_20 < two_environments.r
+
+This will produce a PDF:
+
+    analyses/plots/two_environments-2012_06_20.pdf
+
+And several configs:
+
+    analyses/configs/two_environments-start-2012_06_20.rconf
+    analyses/configs/two_environments-low_noise_optimum-2012_06_20.rconf
+    analyses/configs/two_environments-high_noise_optimum-2012_06_20.rconf
+
+Corresponding to a random starting point in the low-noise environment (start), the optimum when the network is allowed to evolve adaptive in the low-noise environment (low_noise_optimum) and the optimum after the low-noise optimal network is switched into the high-noise environment and allowed to evolve adaptively until it reaches a maximum.
