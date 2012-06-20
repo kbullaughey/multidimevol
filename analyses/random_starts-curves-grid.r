@@ -1,7 +1,6 @@
 library(grid)
 library(xtable)
-source("~/code/colorfunc.r")
-source("lib-closed.r")
+source("../src/r/multidimevol-lib.r")
 
 shuffle <- function(x, len=length(x)) x[sample(1:length(x), len, replace=FALSE)]
 
@@ -22,7 +21,7 @@ thin <- function(x, step=0.01) {
 }
 
 plot.run.name <- "2012_05_08"
-load(file=paste("random_starts/random_starts-2011_10_20.rimage", sep=""))
+load(file=paste("output/random_starts/random_starts-2011_10_20.rimage", sep=""))
 num.runs <- length(runs)
 
 params <- colnames(runs[[1]])[-(1:2)]
@@ -44,8 +43,6 @@ cat("\n")
 # So I use as the denominator, the average change in the parameter over the course of the run
 param.norm.factor <- sapply(params, function(p) 
   mean(sapply(runs, function(r) (function(x) abs(x[1]-x[length(x)]))(r[,p]))))
-
-# BEGIN NEW
 
 # determine the smaller of either the left or right trip to the peak
 peak.reversal.delta <- function(before, peak, after, x) {
@@ -138,8 +135,6 @@ reformat.reversal <- function(candidate) {
   )
 }
 
-# END NEW
-
 mean.param.improvement <- sapply(c(params, "fitness"), function(param) {
   improvement <- mean(as.numeric(sapply(runs, function(x) max(x[,param])-min(x[,param]))))
 })
@@ -170,7 +165,7 @@ reversal.sizes.normalized <- lapply(1:length(params), function(i) {
 reversal.sizes.normalized.unlisted <- lapply(reversal.sizes.normalized, unlist) 
 
 normalized.threshold <- 0.05
-pdf(file="reversal_sizes_distributions.pdf", height=3*2, width=3*3)
+pdf(file="plots/reversal_sizes_distributions.pdf", height=3*2, width=3*3)
 palette(c("gray", "firebrick", "black"))
 par(mar=c(4,4,1,1), mgp=c(2,0.8,0), cex.axis=0.75, mfrow=c(2,3))
 trash <- lapply(1:length(params), function(i) {
@@ -272,7 +267,7 @@ to.use[1] <- 5
 scale <- 1.1
 #palette(c("black", rgb(0, 0, 0, 0.3), "coral3", "gray40", "gray70", "steelblue3"))
 palette(c("black", rgb(0, 0, 1, 0.3), "coral3", "gray40", "gray70", "black"))
-pdf(file=paste("random_starts/curves-grid-", plot.run.name, "-v2.pdf", sep=""), width=(0.2+num.reps)*scale, height=5.5*scale)
+pdf(file=paste("plots/curves-grid-", plot.run.name, "-v2.pdf", sep=""), width=(0.2+num.reps)*scale, height=5.5*scale)
 # full device
 pushViewport(viewport())
   grid.text("evolvable traits", y=(2*top.mar+main.height)/2, x=0.02, rot=90, gp=gpar(cex=1.1))
@@ -352,8 +347,8 @@ pushViewport(viewport())
 popViewport()
 dev.off()
 
-save.image("post-random_starts-curves-grid.rimage")
-save(mean.param.improvement, file="mean_param_improvement.rimage")
+save.image("data/post-random_starts-curves-grid.rimage")
+save(mean.param.improvement, file="data/mean_param_improvement.rimage")
 
 # generate a table similar to Table 2, but for the SMS approximation
 
