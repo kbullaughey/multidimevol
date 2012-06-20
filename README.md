@@ -7,6 +7,8 @@ This repository contains the code and analyses relating to:
 
 Bullaughey, K. (2012) Multidimensional adaptive evolution of a feed-forward network and the illusion of compensation. Evolution (in press)
 
+The authorative copy of this source can be found at [https://github.com/kbullaughey/multidimevol]
+
 Dependencies & Runtime Environment
 ----------------------------------
 
