@@ -2,6 +2,14 @@ library(grid)
 library(xtable)
 source("../src/r/multidimevol-lib.r")
 
+# Require the argument --run=<runname> on the command line
+the.args <- commandArgs()
+run.name <- sub("--run=", "", the.args[grep("--run=", the.args)])
+stopifnot(length(run.name) == 1)
+
+# run.name for the submitted analyses:
+# run.name <- "2011_10_20"
+
 shuffle <- function(x, len=length(x)) x[sample(1:length(x), len, replace=FALSE)]
 
 reduce <- function(x, len=100) x[floor(seq(1, length(x), length.out=len))]
@@ -20,8 +28,7 @@ thin <- function(x, step=0.01) {
   return(use)
 }
 
-plot.run.name <- "2012_05_08"
-load(file=paste("output/random_starts/random_starts-2011_10_20.rimage", sep=""))
+load(file=project.path(paste("analyses/data/random_starts-", run.name, ".rimage", sep="")))
 num.runs <- length(runs)
 
 params <- colnames(runs[[1]])[-(1:2)]
@@ -165,20 +172,6 @@ reversal.sizes.normalized <- lapply(1:length(params), function(i) {
 reversal.sizes.normalized.unlisted <- lapply(reversal.sizes.normalized, unlist) 
 
 normalized.threshold <- 0.05
-pdf(file="plots/reversal_sizes_distributions.pdf", height=3*2, width=3*3)
-palette(c("gray", "firebrick", "black"))
-par(mar=c(4,4,1,1), mgp=c(2,0.8,0), cex.axis=0.75, mfrow=c(2,3))
-trash <- lapply(1:length(params), function(i) {
-  h <- hist(reversal.sizes.normalized.unlisted[[i]], breaks=100, plot=FALSE)
-  color <- 1+(h$breaks[-1] <= normalized.threshold)
-  hist(reversal.sizes.normalized.unlisted[[i]], xlab=paste(params[i], "reversal size"), 
-    col=color, border=color, main="", breaks=100)
-})
-h <- hist(unlist(reversal.sizes.normalized), breaks=100, plot=FALSE)
-color <- 1+(h$breaks[-1] <= normalized.threshold)
-hist(unlist(reversal.sizes.normalized), xlab="combined reversal size", 
-  col=color, border=color, main="", breaks=100)
-dev.off()
 
 biggest.reversals.stage2 <- lapply(1:length(biggest.reversals.stage1), function(rep) {
   lapply(1:length(params), function(param.i) {
@@ -265,9 +258,9 @@ plot.cols <- c(1:num.rev.reps, (1:num.nonrev.reps)+num.rev.reps+1)
 to.use[1] <- 5
 
 scale <- 1.1
-#palette(c("black", rgb(0, 0, 0, 0.3), "coral3", "gray40", "gray70", "steelblue3"))
 palette(c("black", rgb(0, 0, 1, 0.3), "coral3", "gray40", "gray70", "black"))
-pdf(file=paste("plots/curves-grid-", plot.run.name, "-v2.pdf", sep=""), width=(0.2+num.reps)*scale, height=5.5*scale)
+pdf(file=project.path(paste("analyses/plots/curves-grid-", run.name, "-v2.pdf", sep="")), 
+  width=(0.2+num.reps)*scale, height=5.5*scale)
 # full device
 pushViewport(viewport())
   grid.text("evolvable traits", y=(2*top.mar+main.height)/2, x=0.02, rot=90, gp=gpar(cex=1.1))
@@ -347,8 +340,8 @@ pushViewport(viewport())
 popViewport()
 dev.off()
 
-save.image("data/post-random_starts-curves-grid.rimage")
-save(mean.param.improvement, file="data/mean_param_improvement.rimage")
+save.image(project.path(paste("analyses/data/post-random_starts-curves-grid-", run.name, ".rimage", sep="")))
+save(mean.param.improvement, file=project.path(paste("analyses/data/mean_param_improvement-", run.name, ".rimage", sep="")))
 
 # generate a table similar to Table 2, but for the SMS approximation
 
@@ -388,8 +381,7 @@ reversal.table <- data.frame(
 )
 
 reversal.xtable <- xtable(reversal.table)
-print(reversal.xtable, file="SMS_reversals.table.tex")
-
+print(reversal.xtable, file=project.path(paste("analyses/data/SMS_reversals.table-", run.name, ".tex", sep="")))
 
 # END
 

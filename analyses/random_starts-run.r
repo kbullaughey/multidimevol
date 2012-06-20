@@ -1,8 +1,14 @@
 source("../src/r/multidimevol-lib.r")
 
-run.name <- "2011_10_20"
+# Require the argument --run=<runname> on the command line
+the.args <- commandArgs()
+run.name <- sub("--run=", "", the.args[grep("--run=", the.args)])
+stopifnot(length(run.name) == 1)
 
-source("random_starts-setup.r")
+# run.name for the submitted analyses:
+# run.name <- "2011_10_20"
+
+source(project.path("analyses/random_starts-setup.r"))
 
 desired.runs <- 200
 models <- list()
@@ -31,4 +37,8 @@ runs.collated <- collate.par.vs.time(runs)
 ranges <- lapply(c("fitness", names(choices.mx)), function(param) range(unlist(lapply(runs, function(x) range(x[,param])))))
 names(ranges) <- c("fitness", names(choices.mx))
 
-save.image(file=paste("random_starts/random_starts-", run.name, ".rimage", sep=""))
+save.image(file=project.path(paste("analyses/data/random_starts-", run.name, ".rimage", sep="")))
+
+# END
+
+
