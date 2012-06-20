@@ -1,0 +1,140 @@
+\def\fileversion{1.0}
+\def\filedate{1999/09/24}
+\def\fileauthor{Eric Anderson}
+\ProvidesPackage{evolution_style}[\filedate\space\fileversion
+\space\fileauthor\space LaTeX package loading style file for Evolution manuscript]
+
+
+\newcommand{\RunningHead}{PLEASE RENEWCOMMAND%
+            $\backslash$RunningHead}
+\newcommand{\KeyWords}{PLEASE RENEWCOMMAND%
+            $\backslash$KeyWords}
+\newcommand{\CorrespondingAuthor}{PLEASE RENEWCOMMAND%
+            $\backslash$CorrespondingAuthor}
+\newcommand{\CorrespondingAddress}{PLEASE RENEWCOMMAND%
+            $\backslash$CorrespondingAddress}
+
+
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                   {.3ex \@plus.2ex}%
+                                   {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {-.55em \@plus -.2em}%
+                                     {\normalfont\normalsize\bfseries}}
+
+
+
+\setcounter{secnumdepth}{0}
+\newcommand{\multilineTitle}[1]{\def \@title {#1} }
+
+
+%% FORMAT THE TITLE PAGE
+\renewcommand\maketitle{%\begin{titlepage}%
+  \null\vfil
+  \vskip 60\p@
+  \begin{center}%
+    \resizebox{\columnwidth}{!}{\Large \parbox{17.5cm}{\centering \@title} \par}%
+    \vskip 3em%
+    {\normalsize
+     \lineskip .75em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+      \vskip 1.5em%
+    {\normalsize \@date \par}%       % Set date in \large size.
+  \end{center}\par
+  \@thanks
+  \vfil\null
+     \vskip 25\p@
+     \begin{center}
+      \vfil
+      \CorrespondingAddress
+     \end{center}
+%  \end{titlepage}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+%  \vspace*{15ex}
+  \begin{center}
+     Running Head: \RunningHead
+  \end{center}
+     \vskip 20\p@
+	   \newbox{\KeyWordstempboxa}
+    \savebox{\KeyWordstempboxa}{KeyWords: \KeyWords}%
+    \ifdim \wd\KeyWordstempboxa >\textwidth
+      Key Words: \KeyWords
+    \else
+     \begin{center}
+        Key Words:  \KeyWords
+      \end{center}
+    \fi
+     \vfil
+}
+
+%%  Format the abstract page appropriately
+\renewenvironment{abstract}{%
+      \clearpage
+      \null\vfil
+      \@beginparpenalty\@lowpenalty
+      \section{Abstract}
+        \@endparpenalty\@M
+      }{\par\vfil\null\clearpage}
+    
+%% DOUBLE SPACE IT AND SET THE PAGE DIMENSIONS
+\renewcommand{\baselinestretch}{1.5}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\topmargin}{-20pt}
+\setlength{\headsep}{30pt}
+\setlength{\headheight}{14pt}
+\addtolength{\textheight}{0.8in}
+\setlength{\textwidth}{6.5in}
+
+\renewcommand{\refname}{LITERATURE CITED}
+
+%% CHANGE THE BIBLIOGRAPHY ENVIRONMENT SO THAT IT ISN'T MOVED OVER
+%% TO THE RIGHT THE WAY IT IS IN MYCHICAGO.  IN FACT, I SHOULD JUST 
+%% MAKE THIS CHANGE TO MYCHICAGO ANYWAY.
+\renewcommand{\thebibliography}[1]{\section*{\refname\@mkboth
+   {\uppercase{\refname}}{\uppercase{\refname}}}\list
+   {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}
+   \leftmargin\labelwidth
+   \advance\leftmargin -\labelwidth
+   \advance\leftmargin\bibindent
+   \itemindent -\bibindent
+   \listparindent \itemindent
+   \parsep \z@
+   \usecounter{enumi}}
+   \def\newblock{}
+   \sloppy
+   \sfcode`\.=1000\relax}  
+   
+%% CHANGE THE \appendix COMMAND TO START NUMBERING EQUATIONS
+%% AS A1, A2, ETC.
+\renewcommand\appendix{\par
+  \setcounter{section}{0}%
+  \setcounter{subsection}{0}%
+  \renewcommand\thesection{\@Alph\c@section}
+  \setcounter{equation}{0}
+  \renewcommand{\theequation}{A\arabic{equation}}}
+
+
+%% Some changes so that the my citations are of a "shortcite" style. %%
+\renewcommand{\cite}{\shortcite}
+\renewcommand{\citeN}{\shortciteN}
+\renewcommand{\citeNP}{\shortciteNP}
+\renewcommand{\citeA}{\shortciteA}
+\renewcommand{\citeANP}{\shortciteANP}
+
+
+\endinput
+
