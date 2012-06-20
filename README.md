@@ -118,4 +118,11 @@ Given I had a cluster of compute nodes available running Sun Grid Engine, I subm
 
 These jobs are not particularly computationally intensive (taking less than 1 minute each on contemporary hardware), and so they could be run sequentially. However, the shell script assumes the existence of an environment variable, `JOB_ID`, which one would need to set uniquely for each repliate, so the files do not overwrite each other.
 
+The above jobs create a series of directories containing the output of the following form:
+
+    analyses/data/discrete_effects-simulations/2012_06_20/$JOB_ID
+
+Each run is plotted in a PDF named `2012_06_20-$JOB_ID-selection.pdf` in the corresponding directory. Here is [one example for job 6798066][selplot].
+
+[selplot]: https://github.com/kbullaughey/multidimevol/blob/master/analyses/data/discrete_effects-simulations/2012_06_20/6798066/2012_06_20-6798066-selection.pdf?raw=true
 
