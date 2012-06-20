@@ -32,10 +32,10 @@ if [ ! -f $simconfig ] ; then
    exit 1
 fi
 
-R --vanilla --args --run=$run-$JOB_ID --prefix=runs --regconfig=$regconfig \
+R --vanilla --args --set=$run --run=$JOB_ID --regconfig=$regconfig \
   --simconfig=$simconfig < $rscript
 
-R --vanilla --args --rimage=runs/$run-$JOB_ID/$run-$JOB_ID.rimage \
-  --pdf=runs/$run-$JOB_ID/$run-$JOB_ID-selection.pdf < selection-vertical.r
+R --vanilla --args --rimage=data/discrete_effects-simulations/$run/$JOB_ID/$run-$JOB_ID.rimage \
+  --pdf=data/discrete_effects-simulations/$run/$JOB_ID/$run-$JOB_ID-selection.pdf < selection-vertical.r
 
 # END

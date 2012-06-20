@@ -1,6 +1,5 @@
 library(grid)
-source("lib-closed.r")
-source("~/code/colorfunc.r")
+source("../src/r/multidimevol-lib.r")
 
 the.args <- commandArgs()
 rimage <- sub("--rimage=", "", the.args[grep("--rimage=", the.args)])
@@ -143,24 +142,5 @@ popViewport()
 
 dev.off()
 
-
-#par(mar=c(4,4,4,1), mgp=c(1.8,0.75,0), cex.lab=1.1, cex.axis=0.8)
-#layout.m <- rep(0, plot.cols*plot.rows)
-#layout.m[1:num.plots] <- 1:num.plots
-#layout(matrix(layout.m, nrow=plot.rows, ncol=plot.cols, byrow=TRUE))
-#trash <- lapply(1:length(param.names), function(i) {
-#})
-#plot(c(0,1), c(1,length(palette)), type="n", xlab="", ylab="", axes=FALSE)
-#legend("topleft", pch=21, col=line.colors[c(rep(1,5),2)], pt.bg=palette(), pt.cex=c(0.8, 1.2, 0.8, 1.2, 1.2, NA), 
-#   lwd=c(rep(NA, 5), 1),
-#   legend=c(
-#      "mutation affects other parameter",
-#      "deleterious, Ns < -2",
-#      "effectively neutral, -2 < Ns < 2",
-#      "weakly beneficial, 2 < Ns < 5",
-#      "beneficial, 5 < Ns", 
-#      "overshooting"))
-#   
-#dev.off()
 
 # END
