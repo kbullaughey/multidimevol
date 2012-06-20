@@ -41,5 +41,8 @@ This will produce two PDFs:
     build/bullaughey-2012_evolution.pdf
     build/bullaughey-2012_evolution-supporting_information.pdf
 
-Here are the submitted versions of the main text and supplement.
+Here are the submitted versions of the [main text][mt] and [supplement][sup].
+
+[mt]: https://github.com/kbullaughey/multidimevol/blob/master/manuscript/submitted/bullaughey-2012_evolution.pdf
+[sup]: https://github.com/kbullaughey/multidimevol/blob/master/manuscript/submitted/bullaughey-2012_evolution-supporting_information.pdf
 
