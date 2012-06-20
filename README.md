@@ -97,3 +97,32 @@ And several configs:
     analyses/configs/two_environments-high_noise_optimum-2012_06_20.rconf
 
 Corresponding to a random starting point in the low-noise environment (start), the optimum when the network is allowed to evolve adaptive in the low-noise environment (low_noise_optimum) and the optimum after the low-noise optimal network is switched into the high-noise environment and allowed to evolve adaptively until it reaches a maximum.
+
+**Producing Figure 6**
+
+Figure 6 involved running 100 replicate simulations, staring from a particular feed-forward network that had reached a maximum by evolving adaptively to the low-noise environment, and evolving it in the high-noise environment under the assumptions of discrete mutaitonal effects, each of which only affects a single trait.
+
+The initial feed-forward network that is adapted to the low-noise environment is given in:
+
+    configs/discrete_effect_start.rconf
+
+And the simulation paremters I used are given in:
+
+    configs/discrete_effects.sconf
+
+Given I had a cluster of compute nodes available running Sun Grid Engine, I submitted the jobs to the cluster:
+
+    for i in `seq 1 100`; do 
+      qsub discrete_effects-submit.sh 2012_06_20 configs/discrete_effect_start.rconf configs/discrete_effects.sconf
+    done
+
+These jobs are not particularly computationally intensive (taking less than 1 minute each on contemporary hardware), and so they could be run sequentially. However, the shell script assumes the existence of an environment variable, `JOB_ID`, which one would need to set uniquely for each repliate, so the files do not overwrite each other.
+
+The above jobs create a series of directories containing the output of the following form:
+
+    analyses/data/discrete_effects-simulations/2012_06_20/$JOB_ID
+
+Each run is plotted in a PDF named `2012_06_20-$JOB_ID-selection.pdf` in the corresponding directory. Here is [one example for job 6798066][selplot].
+
+[selplot]: https://github.com/kbullaughey/multidimevol/blob/master/analyses/data/discrete_effects-simulations/2012_06_20/6798066/2012_06_20-6798066-selection.pdf?raw=true
+
