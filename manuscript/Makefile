@@ -9,11 +9,12 @@ $(DOC).pdf: $(DOC).tex $(DOC).bib mychicago.bst
 	latex $(DOC)
 	latex $(DOC)
 	dvips -t letter -o $(DOC).ps $(DOC).dvi
-	gs -sDEVICE=pdfwrite -sOutputFile=$(DOC).pdf -dNOPAUSE -dBATCH -sPAPERSIZE=letter -dAutoRotatePages=/None $(DOC).ps
+	gs -sDEVICE=pdfwrite -sOutputFile=build/$(DOC).pdf -dNOPAUSE -dBATCH -sPAPERSIZE=letter -dAutoRotatePages=/None $(DOC).ps
 
 $(SUP).pdf: $(SUP).tex
 	pdflatex $(SUP)
 	pdflatex $(SUP)
+	mv $(SUP).pdf build/
 
 clean: 
-	-rm $(DOC).blg $(DOC).bbl $(DOC).aux $(DOC).log $(DOC).pdf $(SUP).aux $(SUP).log $(DOC).ps $(DOC).dvi $(SUP).pdf
+	-rm $(DOC).blg $(DOC).bbl $(DOC).aux $(DOC).log $(SUP).aux $(SUP).log $(DOC).ps $(DOC).dvi

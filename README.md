@@ -38,7 +38,7 @@ Simply go into the manuscript directory and run make:
 
 This will produce two PDFs:
 
-    bullaughey-2012_evolution.pdf
-    bullaughey-2012_evolution-supporting_information.pdf
+    build/bullaughey-2012_evolution.pdf
+    build/bullaughey-2012_evolution-supporting_information.pdf
 
 
