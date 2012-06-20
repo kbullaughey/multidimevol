@@ -1,0 +1,14 @@
+# Created: Wed Jun 20 15:41:34 2012
+N: 1000
+evolve.steps: 10000
+evolve.params: c("Y.a", "Y.b", "Z.a", "Z.b", "k")
+evolve.boundaries.Y.a: c(0, Inf)
+evolve.boundaries.Y.b: c(0, Inf)
+evolve.boundaries.Z.a: c(0, Inf)
+evolve.boundaries.Z.b: c(0, Inf)
+evolve.boundaries.k: c(0, 1)
+mut.sd: c(0.05, 0.2)
+mut.components: c(0.7, 0.3)
+mut.num: 1
+mut.func: function (x, delt) 
+m$mut$func <- x * exp(delt)
