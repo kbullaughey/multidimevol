@@ -30,7 +30,9 @@ source("random_starts-setup.r")
 models <- list()
 runs <- lapply(1:1000, function(i) {
    models[[i]] <<- alter.model.list(m.start, as.list(choices.mx[i,][evolvable]))
-   evolve(200, models[[i]], tolerance=1e-10, max.step=0.10, evolvable.param.bitmask=ep.bitmask)
+   full <- evolve(200, models[[i]], tolerance=1e-10, max.step=0.10, evolvable.param.bitmask=ep.bitmask)
+   # Thin the data a bit so file sizes aren't so large
+   full[seq(1, nrow(full), by=8),]
 })
 
 # only consider runs that start with fitness > 0. This is arbitrary, but prevents super big adaptive runs,

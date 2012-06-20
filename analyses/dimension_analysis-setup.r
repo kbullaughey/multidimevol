@@ -20,4 +20,7 @@ shell.script <- project.path(paste("analyses/dimension_analysis-launch-", run.na
 cat("#!/bin/bash\n", file=shell.script)
 cat(file=shell.script, runs, sep="\n", append=TRUE)
 
+cat(as.character(sapply(combos.et, paste, collapse="-")), sep="\n", 
+  file=project.path(paste("analyses/data/dimension_analysis-combos-", run.name, ".txt", sep="")))
+
 # END
