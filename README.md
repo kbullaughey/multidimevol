@@ -14,6 +14,8 @@ I have only tested this code on OS X 10.6 and Redhat Enterprise Linux 5.4.
 
 The code base is a combination of R, C++, and Bash scripts. The C++ portion is compiled into a library that can be dynamically loaded into R. 
 
+The R code depends on the following libraries: `grid`, `xtable`
+
 Installation
 ------------
 
