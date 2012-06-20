@@ -41,4 +41,5 @@ This will produce two PDFs:
     build/bullaughey-2012_evolution.pdf
     build/bullaughey-2012_evolution-supporting_information.pdf
 
+Here are the submitted versions of the main text and supplement.
 
