@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+use strict;
+
+my $seed = time ^ $$ ^ unpack("%L*", `ps aux | gzip`);
+
+my $bound = 10000000-1;
+$seed = $seed % $bound;
+
+$ENV{JOB_ID}="$seed";
+
+exec "bash ".join(" ", @ARGV);
