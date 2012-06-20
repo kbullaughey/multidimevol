@@ -1,8 +1,9 @@
-# TODO:
-#  - change the encoding of c1 and c2 to be c$F and c$T
-#  - abstract the maximum signal durations for true and false signals
+# The project must be contained in a directory labeled 'multidimevol' otherwise
+# scripts won't be able to find the project root
+project.root <- gsub("/multidimevol/.*$", "/multidimevol", getwd())
+project.path <- function(relpath) paste(project.root, relpath, sep="/")
 
-dyn.load("reg_xyz.so")
+dyn.load(project.path("src/c/reg_xyz.so"))
 
 zip <- function(x, y, func) sapply(1:length(x), function(i) func(x[[i]], y[[i]]))
 reduce.vector <- function(x, len=NULL) {
