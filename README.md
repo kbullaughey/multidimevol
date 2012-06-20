@@ -92,8 +92,8 @@ This will produce a PDF:
 
 And several configs:
 
-    two_environments-start-2012_06_20.rconf
-    two_environments-low_noise_optimum-2012_06_20.rconf
-    two_environments-high_noise_optimum-2012_06_20.rconf
+    analyses/configs/two_environments-start-2012_06_20.rconf
+    analyses/configs/two_environments-low_noise_optimum-2012_06_20.rconf
+    analyses/configs/two_environments-high_noise_optimum-2012_06_20.rconf
 
 Corresponding to a random starting point in the low-noise environment (start), the optimum when the network is allowed to evolve adaptive in the low-noise environment (low_noise_optimum) and the optimum after the low-noise optimal network is switched into the high-noise environment and allowed to evolve adaptively until it reaches a maximum.
