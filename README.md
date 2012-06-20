@@ -61,6 +61,15 @@ Here are the submitted versions of the [main text][mt] and [supplement][sup].
 [mt]: https://github.com/kbullaughey/multidimevol/blob/master/manuscript/submitted/bullaughey-2012_evolution.pdf?raw=true
 [sup]: https://github.com/kbullaughey/multidimevol/blob/master/manuscript/submitted/bullaughey-2012_evolution-supporting_information.pdf?raw=true
 
+A note about compute clusters
+-----------------------------
+
+When running these analyses, I had access to a large compute cluster running Sun Grid Engine. Therefore the workflow I describe involves launching jobs using the `qsub` command. Each job has a submission script written in `bash` that sets up a memory allocation and output files for `stdin` and `stderr`. These submission scripts assume the existence of an environment variable, `JOB_ID`, which one would need to set uniquely for each repliate, so the files do not overwrite each other. 
+
+For folks not running on a cluster, I have provided a mock `qsub` command, `src/pl/qsub`, which simply picks a random number for the `JOB_ID` and then runs the submission script directly in a shell environment with this variable defined. 
+
+Simply copy `src/pl/qsub` into a directory that is in your path, make it executable (if it's not already), and you should be able to run the workflows below, albeit slower than when executed in parallel.
+
 Running the analyses
 --------------------
 
@@ -116,7 +125,7 @@ Given I had a cluster of compute nodes available running Sun Grid Engine, I subm
       qsub discrete_effects-submit.sh 2012_06_20 configs/discrete_effect_start.rconf configs/discrete_effects.sconf
     done
 
-These jobs are not particularly computationally intensive (taking less than 1 minute each on contemporary hardware), and so they could be run sequentially. However, the shell script assumes the existence of an environment variable, `JOB_ID`, which one would need to set uniquely for each repliate, so the files do not overwrite each other.
+These jobs are not particularly computationally intensive (taking less than 1 minute each on contemporary hardware), and so they could be run sequentially. See the above section on compute clusters. 
 
 The above jobs create a series of directories containing the output of the following form:
 
@@ -125,4 +134,22 @@ The above jobs create a series of directories containing the output of the follo
 Each run is plotted in a PDF named `2012_06_20-$JOB_ID-selection.pdf` in the corresponding directory. Here is [one example for job 6798066][selplot].
 
 [selplot]: https://github.com/kbullaughey/multidimevol/blob/master/analyses/data/discrete_effects-simulations/2012_06_20/6798066/2012_06_20-6798066-selection.pdf?raw=true
+
+**Producing Figure 7**
+
+The analysis presented in Figure 7 involves all non-empty subsets of the five evolvable traits. Here I perform some preliminary setup, determining all non-empty subsets, and producing a shell script to launch the jobs:
+
+    R --vanilla --args --run=2012_06_20 < dimension_analysis-setup.r
+
+The shell script produced can be run as follows:
+
+    bash dimension_analysis-launch-2012_06_20.sh
+
+The output requires some post-processing:
+
+    ./dimension_analysis-post_process.sh 2012_06_20
+
+This will create `.rimage` files with the naming convention:
+
+    analyses/data/dimension_analysis/2012_06_20/dimsim-<params>-biggest_reversals.rimage
 
