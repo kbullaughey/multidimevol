@@ -50,6 +50,11 @@ Here are the submitted versions of the [main text][mt] and [supplement][sup].
 [mt]: https://github.com/kbullaughey/multidimevol/blob/master/manuscript/submitted/bullaughey-2012_evolution.pdf?raw=true
 [sup]: https://github.com/kbullaughey/multidimevol/blob/master/manuscript/submitted/bullaughey-2012_evolution-supporting_information.pdf?raw=true
 
+Running the analyses
+--------------------
+
+**Note:** Unfortunately, I did not always set a seed for the random number generators, and so the results in the paper are not exactly reproducable from the code contained in this repository. Nonetheless, I do not expect that any of the results are outliers, and so the running the analyses contained here should produce essentially the same results.
+
 Data behind the figures and tables
 ----------------------------------
 
