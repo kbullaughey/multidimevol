@@ -22,4 +22,6 @@ To compile the R library:
     cd src/c
     make
 
-This will produce a file `reg_xyz.so`
+This will produce a file `reg_xyz.so`, which can be loaded into an R session with the command:
+
+    dyn.load("reg_xyz.so")
