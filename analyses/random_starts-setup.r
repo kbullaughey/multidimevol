@@ -9,5 +9,5 @@ sample.choices <- function(n) {
 }
 choices.mx <- sample.choices(10000)
 
-m.start <- load.config(file=project.path("analyses/configs/high_noise_optimum.rconf"), defaults=default.model)
+m.start <- load.config(file=project.path(paste("analyses/configs/two_environments-high_noise_optimum-", run.name, ".rconf", sep="")), defaults=default.model)
 
