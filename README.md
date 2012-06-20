@@ -25,3 +25,20 @@ To compile the R library:
 This will produce a file `reg_xyz.so`, which can be loaded into an R session with the command:
 
     dyn.load("reg_xyz.so")
+
+Compiling the manuscript
+------------------------
+
+I have also included the source for the manuscript, as submitted to Evolution. Both the main text and supplement are written in LaTeX. Compiling it will require `pdflatex`, `bibtex`, `dvips` `gs` (ghostscript) and `make`.  
+
+Simply go into the manuscript directory and run make:
+
+    cd manuscript
+    make
+
+This will produce two PDFs:
+
+    bullaughey-2012_evolution.pdf
+    bullaughey-2012_evolution-supporting_information.pdf
+
+
