@@ -27,7 +27,9 @@ I have only tested this code on OS X 10.6 and Redhat Enterprise Linux 5.4.
 
 The code base is a combination of R, C++, and Bash scripts. The C++ portion is compiled into a library that can be dynamically loaded into R. 
 
-The R code depends on the following libraries: `grid`, `xtable`
+The R code depends on the following libraries: `grid`, `xtable`.
+
+Other dependencies include `perl` and basic unix commands like `ls`.
 
 Installation
 ------------
@@ -145,6 +147,10 @@ The shell script produced can be run as follows:
 
     bash dimension_analysis-launch-2012_06_20.sh
 
+This will create `.rimage` files with the naming convention:
+
+    analyses/data/dimension_analysis/2012_06_20/dimsim-<params>.rimage
+
 The output requires some post-processing:
 
     ./dimension_analysis-post_process.sh 2012_06_20
@@ -152,4 +158,26 @@ The output requires some post-processing:
 This will create `.rimage` files with the naming convention:
 
     analyses/data/dimension_analysis/2012_06_20/dimsim-<params>-biggest_reversals.rimage
+
+At this point, Figure 7 can be generated as follows:
+
+    R --vanilla --args --run=2012_06_20 < dimension_analysis-plot.r
+
+Which will produce a PDF at this location:
+
+    analyses/plots/dimension_analysis-2012_06_20.pdf
+
+Which looks like [this][da].
+
+[da]: https://github.com/kbullaughey/multidimevol/blob/master/analyses/plots/dimension_analysis-2012_06_20.pdf
+
+** Producing Figure S1**
+
+After the dimension analysis (above) is run, Figure S1 can be produced as follows:
+
+    R --vanilla --args --run=2012_06_20 < dimension_analysis-sizes_by_dimension.r
+
+This results in a pdf at this location:
+
+    analysis/plots/reversal_sizes_by_dimension-2012_06_20.pdf
 
