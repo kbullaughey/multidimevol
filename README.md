@@ -29,7 +29,7 @@ The code base is a combination of R, C++, and Bash scripts. The C++ portion is c
 
 The R code depends on the following libraries: `grid`, `xtable`.
 
-Other dependencies include `perl` and basic unix commands like `ls`.
+Other dependencies include `perl` and basic unix commands like `ls`, `ps`, and `gzip`.
 
 Installation
 ------------
