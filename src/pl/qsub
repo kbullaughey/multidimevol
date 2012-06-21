@@ -1,11 +1,26 @@
 #!/usr/bin/perl -w
+
+# This script is a fake version of qsub that merely sets a JOB_ID and executes
+# the bash script passed on the command line. The purpose is to allow the same
+# command to work whether or not one has a cluster available running Sun Grid 
+# Engine. Any command line arguments passed after the script name will be 
+# passed on to bash. The environment variable $JOB_ID is selected at random and
+# is available in the environment of the executed shell.
+
+# Usage:
+# qsub <shell script> [arg1] [arg2] [...]
+
 use strict;
 
+# Choose a seed that's based on data likely to be more or less random
 my $seed = time ^ $$ ^ unpack("%L*", `ps aux | gzip`);
 
+# Bound the seed
 my $bound = 10000000-1;
 $seed = $seed % $bound;
 
+# Put the seed into the environment
 $ENV{JOB_ID}="$seed";
 
+# Execute bash, replacing the current process
 exec "bash ".join(" ", @ARGV);
